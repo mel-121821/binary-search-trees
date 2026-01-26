@@ -14,7 +14,7 @@
 
   Build a `Tree` class/factory which accepts an array when initialized. The `Tree` class should have a `root` attribute, which uses the return value of `buildTree` which you’ll write next.
 
-- [] **Step 3:**
+- [x] **Step 3:**
 
   Write a `buildTree(array)` function that takes an array of data (e.g., `[1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324]`) and turns it into a balanced binary tree full of `Node` objects appropriately placed (don’t forget to sort and remove duplicates!). The `buildTree` function should return the level-0 root node.
 
@@ -108,3 +108,12 @@ https://www.youtube.com/watch?v=86g8jAQug04
 
 Binary Tree Traversal: Preorder, Inorder, Postorder
 https://www.youtube.com/watch?v=gm8DUJJhmY4
+
+Stack overflow: Arr sort and filter:
+https://stackoverflow.com/questions/4833651/javascript-array-sort-and-unique
+
+MDN Arr.sort()
+https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/sort
+
+MDN Arr.filter()
+https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/filter
