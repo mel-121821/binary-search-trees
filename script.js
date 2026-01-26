@@ -29,23 +29,20 @@ class Node {
 }
 
 class Tree {
-  constructor(arr, start = 0, end = arr.length - 1) {
-    // get the start and end indices
-    this.start = start;
-    this.end = end;
-    this.root = this.buildTree(arr, start, end);
+  // Removed start and end from constructor as the end of the array was being calculated before the arr was sorted and duplicates removed. This caused undefined values at the end of the array to be placed in the tree
+  constructor(arr) {
+    this.data = this.modArr(arr);
+    this.start = 0;
+    this.end = this.data.length - 1;
+    this.root = this.buildTree(this.data, this.start, this.end);
   }
 
   buildTree(arr, start, end) {
-    // using recursive method
-
-    // set base case
+    // base case
     if (start > end) {
       return null;
     }
 
-    // Remember BEDMAS (Brackets). Init attempt without brackets resulted in end being divided by 2 before being added to start
-    // Result: 3 + 4 \ 2 resulting in a midpoint of 5 for basicArr and starting an endless recursion loop!
     const mid = Math.ceil((start + end) / 2);
 
     const treeNode = new Node(arr[mid]);
@@ -55,10 +52,25 @@ class Tree {
 
     return treeNode;
   }
+
+  modArr = (arr) => {
+    const modArr = arr
+      .sort((a, b) => {
+        return a - b;
+      })
+      .filter((el, index, a) => {
+        return index === a.indexOf(el);
+      });
+    return modArr;
+  };
 }
 
 const basic = new Tree(basicArr);
 console.log(basic);
 console.log(basic.root);
-
 console.log(prettyPrint(basic.root));
+
+const regTree = new Tree(arr);
+console.log(regTree);
+console.log(regTree.root);
+console.log(prettyPrint(regTree.root));
