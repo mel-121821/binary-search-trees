@@ -32,7 +32,8 @@ class Tree {
   constructor(arr) {
     // NOTE: this.data as a variable name is duplicated from Node, may cause an issue, but leaving for now
 
-    // NOTE: arr is sorted/filtered when tree class is first created, however, there is nothing to prevent duplicates from being added to the tree later
+    // FIXED: arr is sorted/filtered when tree class is first created, however, there is nothing to prevent duplicates from being added to the tree later
+    // Duplicates aree no longer added to the tree
 
     this.data = this.modArr(arr);
     this.start = 0;
@@ -71,13 +72,41 @@ class Tree {
 
   // NOTE: New insertions can cause the tree to become unbalanced - may require rebalancing
 
-  insert(treeNode, key) {
-    if (treeNode === null) return new Node(key);
+  insert(treeNode, value) {
+    if (treeNode === null) return new Node(value);
 
-    if (key < treeNode.data) {
-      treeNode.left = this.insert(treeNode.left, key);
+    if (value < treeNode.data) {
+      treeNode.left = this.insert(treeNode.left, value);
+    } else if (value === treeNode.data) {
+      // value is a duplicate value and should not be added to the tree
     } else {
-      treeNode.right = this.insert(treeNode.right, key);
+      treeNode.right = this.insert(treeNode.right, value);
+    }
+    return treeNode;
+  }
+
+  getSuccessor(curr) {
+    curr = curr.right;
+    while (curr !== null && curr.left !== null) {
+      curr = curr.left;
+    }
+    return curr;
+  }
+
+  deleteItem(treeNode, value) {
+    if (treeNode === null) return treeNode;
+
+    if (value < treeNode.data) {
+      treeNode.left = this.deleteItem(treeNode.left, value);
+    } else if (value > treeNode.data) {
+      treeNode.right = this.deleteItem(treeNode.right, value);
+    } else {
+      if (treeNode.left === null) return treeNode.right;
+      if (treeNode.right === null) return treeNode.left;
+
+      const succ = this.getSuccessor(treeNode);
+      treeNode.data = succ.data;
+      treeNode.right = this.deleteItem(treeNode.right, succ.data);
     }
     return treeNode;
   }
@@ -95,4 +124,7 @@ regTree.insert(regTree.root, 666);
 regTree.insert(regTree.root, 9);
 regTree.insert(regTree.root, 6);
 regTree.insert(regTree.root, 10);
+
+regTree.deleteItem(regTree.root, 9);
+regTree.deleteItem(regTree.root, 67);
 console.log(prettyPrint(regTree.root));
