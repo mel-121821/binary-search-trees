@@ -18,7 +18,7 @@
 
   Write a `buildTree(array)` function that takes an array of data (e.g., `[1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324]`) and turns it into a balanced binary tree full of `Node` objects appropriately placed (don’t forget to sort and remove duplicates!). The `buildTree` function should return the level-0 root node.
 
-- [] **Step 4:**
+- [x] **Step 4:**
 
   Write `insert(value)` and `deleteItem(value)` functions that insert/delete the given value. You’ll have to deal with several cases for delete, such as when a node has children or not. Do NOT use the original input array for these methods as it is inefficient. These methods should be traversing the tree instead.
 
