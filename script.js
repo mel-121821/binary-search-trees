@@ -34,7 +34,7 @@ class Tree {
 
     // FIXED: arr is sorted/filtered when tree class is first created, however, there is nothing to prevent duplicates from being added to the tree later
     // Duplicates aree no longer added to the tree
-
+    console.log(arr);
     this.data = this.modArr(arr);
     this.start = 0;
     this.end = this.data.length - 1;
@@ -46,8 +46,16 @@ class Tree {
       .sort((a, b) => {
         return a - b;
       })
-      .filter((el, index, a) => {
-        return index === a.indexOf(el);
+      .filter((el, index, arr) => {
+        // only the elements that pass the callback are included in return statement
+        console.log(`el == ${el} at index: ${index}`);
+        console.log(`arr.indexOf(el) == ${arr.indexOf(el)}`);
+        // Note:
+        // sorted arr = [1, 3, 4, 4, 5, 7, 7, 8, 9, 9, 23, 67, 324, 6345]
+        // The following line reads the current index and compares it to the first instance of el in the arr
+        // aka. if the current index is 3 (in which el is the second instance of 4), then arr.indexOf(el) will be 2 and return false.
+        // the el that resulted in a false return is not included in the final arr
+        return index === arr.indexOf(el);
       });
     return modArr;
   };
