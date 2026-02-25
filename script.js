@@ -47,14 +47,6 @@ class Tree {
         return a - b;
       })
       .filter((el, index, arr) => {
-        // only the elements that pass the callback are included in return statement
-        console.log(`el == ${el} at index: ${index}`);
-        console.log(`arr.indexOf(el) == ${arr.indexOf(el)}`);
-        // Note:
-        // sorted arr = [1, 3, 4, 4, 5, 7, 7, 8, 9, 9, 23, 67, 324, 6345]
-        // The following line reads the current index and compares it to the first instance of el in the arr
-        // aka. if the current index is 3 (in which el is the second instance of 4), then arr.indexOf(el) will be 2 and return false.
-        // the el that resulted in a false return is not included in the final arr
         return index === arr.indexOf(el);
       });
     return modArr;
@@ -118,6 +110,30 @@ class Tree {
     }
     return treeNode;
   }
+
+  levelOrderForEach_Recur(treeNode, fn, lvl = 0) {
+    // if no fn param is passed in, this function will assume the lvl param is the fn. The lvl param is a number, so we can incorporate Number.isFinite() into the throw statement. If it translates to a number, we know that the callback was not passed, and throw an error.
+    if (!fn || Number.isFinite(fn) === true) {
+      throw new Error("This fn requires a callback");
+    }
+    if (treeNode === null) return;
+    const q = [];
+    q.push(treeNode);
+    lvl++;
+    while (q.length > 0) {
+      this.levelOrderForEach_Recur(q[0].left, fn, lvl);
+      this.levelOrderForEach_Recur(q[0].right, fn, lvl);
+      this.callback(q[0].data, lvl);
+      q.shift();
+    }
+  }
+
+  levelOrderForEach_Iterate(treeNode, fn) {}
+
+  callback(value, lvl) {
+    // The callback only needs to print the values, the rest of the logic can be contained within the main fn() body
+    console.log(`Node ${value} --> level ${lvl}`);
+  }
 }
 
 const basic = new Tree(basicArr);
@@ -136,3 +152,6 @@ regTree.insert(regTree.root, 10);
 regTree.deleteItem(regTree.root, 9);
 regTree.deleteItem(regTree.root, 67);
 console.log(prettyPrint(regTree.root));
+
+regTree.levelOrderForEach_Recur(regTree.root, regTree.callback);
+// regTree.levelOrderForEach_Recur(regTree.root);
