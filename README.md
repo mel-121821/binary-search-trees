@@ -117,3 +117,6 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects
 
 MDN Arr.filter()
 https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/filter
+
+MDN isFinite()
+https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/isFinite
