@@ -33,15 +33,15 @@ class Tree {
     // NOTE: this.data as a variable name is duplicated from Node, may cause an issue, but leaving for now
 
     // FIXED: arr is sorted/filtered when tree class is first created, however, there is nothing to prevent duplicates from being added to the tree later
-    // Duplicates aree no longer added to the tree
+    // Duplicates are no longer added to the tree
     console.log(arr);
-    this.data = this.modArr(arr);
+    this.data = this.sortAndRemoveDuplicates(arr);
     this.start = 0;
     this.end = this.data.length - 1;
     this.root = this.buildTree(this.data, this.start, this.end);
   }
 
-  modArr = (arr) => {
+  sortAndRemoveDuplicates = (arr) => {
     const modArr = arr
       .sort((a, b) => {
         return a - b;
@@ -111,24 +111,58 @@ class Tree {
     return treeNode;
   }
 
-  levelOrderForEach_Recur(treeNode, fn, lvl = 0) {
-    // if no fn param is passed in, this function will assume the lvl param is the fn. The lvl param is a number, so we can incorporate Number.isFinite() into the throw statement. If it translates to a number, we know that the callback was not passed, and throw an error.
+  // ___________;
+
+  levelOrderForEach_Recur(fn, lvl = 1, q = [this.root]) {
+    // if no fn param is passed in, this function will assume the lvl param is the fn. The lvl param is a number, so we can incorporate Number.isFinite() into the throw statement. If it translates to a number, we know that the callback was not passed, and throw an error
     if (!fn || Number.isFinite(fn) === true) {
+      console.log(fn);
+      throw new Error("This fn requires a callback");
+    }
+    if (!q.length) return;
+
+    while (q.length) {
+      let qLen = q.length;
+
+      for (let i = 0; i < qLen; i++) {
+        let front = q.shift();
+        if (front.left !== null) {
+          q.push(front.left);
+        }
+        if (front.right !== null) {
+          q.push(front.right);
+        }
+        fn(front.data, lvl);
+      }
+      lvl++;
+      this.levelOrderForEach_Recur(fn, lvl, q);
+    }
+  }
+
+  levelOrderForEach_Iterate(treeNode, fn) {
+    if (!fn) {
       throw new Error("This fn requires a callback");
     }
     if (treeNode === null) return;
     const q = [];
     q.push(treeNode);
-    lvl++;
+    let lvl = 1;
     while (q.length > 0) {
-      this.levelOrderForEach_Recur(q[0].left, fn, lvl);
-      this.levelOrderForEach_Recur(q[0].right, fn, lvl);
-      this.callback(q[0].data, lvl);
-      q.shift();
+      let qLen = q.length;
+
+      for (let i = 0; i < qLen; i++) {
+        let front = q.shift();
+        if (front.left !== null) {
+          q.push(front.left);
+        }
+        if (front.right !== null) {
+          q.push(front.right);
+        }
+        fn(front.data, lvl);
+      }
+      lvl++;
     }
   }
-
-  levelOrderForEach_Iterate(treeNode, fn) {}
 
   callback(value, lvl) {
     // The callback only needs to print the values, the rest of the logic can be contained within the main fn() body
@@ -144,14 +178,120 @@ console.log(prettyPrint(basic.root));
 const regTree = new Tree(arr);
 console.log(regTree);
 console.log(regTree.root);
-regTree.insert(regTree.root, 666);
-regTree.insert(regTree.root, 9);
-regTree.insert(regTree.root, 6);
-regTree.insert(regTree.root, 10);
+// regTree.insert(regTree.root, 666);
+// regTree.insert(regTree.root, 9);
+// regTree.insert(regTree.root, 6);
+// regTree.insert(regTree.root, 10);
 
-regTree.deleteItem(regTree.root, 9);
-regTree.deleteItem(regTree.root, 67);
+// regTree.deleteItem(regTree.root, 9);
+// regTree.deleteItem(regTree.root, 67);
 console.log(prettyPrint(regTree.root));
 
-regTree.levelOrderForEach_Recur(regTree.root, regTree.callback);
+regTree.levelOrderForEach_Recur(regTree.callback);
 // regTree.levelOrderForEach_Recur(regTree.root);
+
+//____End of project code___________
+
+// Failed attemptes at Recursion of levelOrderForEach:
+
+// Attempt 1:
+
+//  levelOrderForEach_Recur(treeNode, fn, lvl = 1, q = []) {
+//     .
+//     if (!fn || Number.isFinite(fn) === true) {
+//       console.log(fn);
+//       throw new Error("This fn requires a callback");
+//     }
+//     if (treeNode === null) return;
+
+//     fn(treeNode.data, lvl);
+//     console.log(...q);
+//     if (treeNode.left !== null) {
+//       q.push(treeNode.left);
+//     }
+
+//     if (treeNode.right !== null) {
+//       q.push(treeNode.right);
+//     }
+
+//     lvl++;
+//     while (q.length > 0) {
+//       // get first node
+//       // set lvl
+//       // make q --> q = [Node 8]
+//       // visit first node and print with callback
+//       // push left and right nodes to q --> q = [Node 8, Node 4, Node 67]
+//       // Remove 1st Node --> q = [Node 4, Node67]
+//       // Increase lvl by 1
+//       //
+//       // Note: fn needs the args - fn, q and lvl
+
+//       q.shift(); // remove front of q
+//       // fn(front.data, lvl); // print the value
+//       const front = q[0];
+//       this.levelOrderForEach_Recur(front, fn, lvl, q);
+//       // this.levelOrderForEach_Recur(front.left, fn, lvl, q);
+//       // this.levelOrderForEach_Recur(front.right, fn, lvl, q);
+//       // add left and right nodes to q
+//     }
+//   }
+
+// Attempt 2 (Pseudocode mixed in):
+
+// levelOrderForEach_Recur(fn, lvl = 1, q = [this.root]) {
+//   if (!q.length) return;
+//   // Visit first Node --> Node 8
+//   // place r and l addresses in the q --> q = [Node 8, Node 4, Node 67]
+//
+
+//   if (front.left !== null) q.push(front.left);
+//   if (front.right !== null) q.push(front.right);
+
+//   // fn - print node data and lvl
+//   fn(q[0].data, lvl);
+
+//   while (q.length) {
+//     // q.shift(); // --> [Node 4, Node 67]
+//     if (q.length >= lvl * 2) lvl++;
+//     this.levelOrderForEach_Recur(fn, lvl, q);
+//   }
+
+//   // # of values double for every level --> if q.length >= lvl * 2 --> lvl ++ --> q.len = 2, lvl * 2 = 2 --.returns true, lvl == 2
+
+//   // Recursive call on q values instead of on binary tree??
+
+//   // Recursively call on new q --> [Node 4, Node 67]
+//   // visit first node --> Node 4
+//   // add r and l addresses to q --> q = [Node 4, Node 67, Node 3, Node 7]
+//   // fn - print node data and lvl
+//   // q.shift --> [Node 67, Node 3, Node 7]
+//   // if q.length >= lvl * 2 --> lvl ++ --> q.len = 3, lvl * 2 = 4 --.returns false, lvl == 2
+
+//   // Recursive call on new q --> [Node 67, Node 3, Node 7]
+//   // Visit first Node --> Node 67
+//   // add r and l addresses to q --> q = [Node 67, Node 3, Node 7, Node 23, Node 6345]
+//   // fn - print data and lvl
+//   // q.shift --> [Node 3, Node, 7, Node 23, Node 6345]
+//   // if q.length >= lvl * 2 --> lvl ++ --> q.len = 4, lvl * 2 = 4 --.returns true, lvl == 3
+
+//   // Recur on new q --> [Node 3, Node 7, Node 23, Node 6345]
+//   // Visit first Node --> Node 3
+//   // if q.length >= lvl * 2 --> lvl ++ --> q.len = 4, lvl * 2 = 4 --.returns true, lvl == 3
+//   // add l and r addresses to the q if not null --> q = [Node 3, Node, 7, Node 23, Node 6345, Node 1]
+//   // fn - print data and lvl
+//   // q.shift --> [Node, 7, Node 23, Node 6345, Node 1]
+
+//   // Recur on new q --> [Node 7, Node 23, Node 6345, Node 1]
+//   // Visit first Node --> Node 7
+//   // if q.length >= lvl * 2 --> lvl ++ --> q.len = 4, lvl * 2 = 4 --.returns true, lvl == 3
+
+// Note: This line not work for the last level in the tree, as there are not enough nodes to fill the level
+
+//         ___________8___________
+//         |                     |
+//    _____4_____           _____67_____
+//    |         |           |          |
+// ___3___   ___7___     ___23___ ___ 6345___
+// |      |  |     |     |      | |         |
+// 1         5           9        324
+// }
