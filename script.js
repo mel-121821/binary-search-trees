@@ -72,15 +72,29 @@ class Tree {
 
   // NOTE: New insertions can cause the tree to become unbalanced - may require rebalancing
 
-  insert(treeNode, value) {
+  includes(value, node = this.root) {
+    if (node === null) {
+      console.log(`Value: ${value} was not found`);
+      return false;
+    }
+
+    if (value < node.data) this.includes(value, node.left);
+    if (value > node.data) this.includes(value, node.right);
+    if (value === node.data) {
+      console.log(`Value ${value} was found!`);
+      return true;
+    }
+  }
+
+  insert(value, treeNode = this.root) {
     if (treeNode === null) return new Node(value);
 
     if (value < treeNode.data) {
-      treeNode.left = this.insert(treeNode.left, value);
+      treeNode.left = this.insert(value, treeNode.left);
     } else if (value === treeNode.data) {
       // value is a duplicate value and should not be added to the tree
     } else {
-      treeNode.right = this.insert(treeNode.right, value);
+      treeNode.right = this.insert(value, treeNode.right);
     }
     return treeNode;
   }
@@ -93,20 +107,20 @@ class Tree {
     return curr;
   }
 
-  deleteItem(treeNode, value) {
+  deleteItem(value, treeNode = this.root) {
     if (treeNode === null) return treeNode;
 
     if (value < treeNode.data) {
-      treeNode.left = this.deleteItem(treeNode.left, value);
+      treeNode.left = this.deleteItem(value, treeNode.left);
     } else if (value > treeNode.data) {
-      treeNode.right = this.deleteItem(treeNode.right, value);
+      treeNode.right = this.deleteItem(value, treeNode.right);
     } else {
       if (treeNode.left === null) return treeNode.right;
       if (treeNode.right === null) return treeNode.left;
 
       const succ = this.getSuccessor(treeNode);
       treeNode.data = succ.data;
-      treeNode.right = this.deleteItem(treeNode.right, succ.data);
+      treeNode.right = this.deleteItem(succ.data, treeNode.right);
     }
     return treeNode;
   }
@@ -178,13 +192,18 @@ console.log(prettyPrint(basic.root));
 const regTree = new Tree(arr);
 console.log(regTree);
 console.log(regTree.root);
-// regTree.insert(regTree.root, 666);
-// regTree.insert(regTree.root, 9);
-// regTree.insert(regTree.root, 6);
-// regTree.insert(regTree.root, 10);
 
-// regTree.deleteItem(regTree.root, 9);
-// regTree.deleteItem(regTree.root, 67);
+regTree.includes(324);
+regTree.includes(72);
+
+regTree.insert(666);
+regTree.insert(9);
+regTree.insert(6);
+regTree.insert(10);
+
+regTree.deleteItem(9);
+regTree.deleteItem(67);
+regTree.deleteItem(0);
 console.log(prettyPrint(regTree.root));
 
 regTree.levelOrderForEach_Recur(regTree.callback);
