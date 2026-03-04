@@ -18,7 +18,7 @@
 
   Write a `buildTree(array)` function that takes an array of data (e.g., `[1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324]`) and turns it into a balanced binary tree full of `Node` objects appropriately placed (don’t forget to sort and remove duplicates!). The `buildTree` function should return the level-0 root node.
 
-- [] **Step 4:**
+- [x] **Step 4:**
 
   Write an `includes(value)` function that accepts a value and returns `true` if the given value is in the tree. If the value isn’t in the tree, it should return `false`.
 
@@ -26,18 +26,18 @@
 
   Write an `insert(value)` function that accepts a value and inserts a new node with that value into the tree. Be sure to insert in a way that preserves the “binary search” property: for each node, every node to its left must have a lower value, and every node to its right must have a greater value. If the function is called with a value that already exists in the tree, the function should do nothing
 
-- [] **Step 6:**
+- [x] **Step 6:**
 
   Write a `deleteItem(value)` function that accepts a value and removes it from the tree. You’ll have to deal with multiple cases for this based on how many children the targeted node has. If the given value doesn’t exist in the tree, the function should do nothing.
 
-- [] **Step 7:**
+- [x] **Step 7:**
 
   Write a `levelOrderForEach(callback)` function that accepts a callback function as its parameter. `levelOrderForEach` should traverse the tree in breadth-first level order and call the callback on each node as it traverses, passing the whole node as an argument, similarly to how `Array.prototype.forEach` might work for arrays. `levelOrderForEach` may be implemented using either iteration or recursion (try implementing both!). If no callback function is provided, throw an Error reporting that a callback is required.\
 
   **Tip:** You will want to use an array acting as a queue to keep track of all the child nodes that you have yet to traverse and to add new ones to the list.\
   [See Level Order Traversal video](#resources)
 
-- [] **Step 8:**
+- [x] **Step 8:**
 
   Write `inOrderForEach(callback)`, `preOrderForEach(callback)`, and `postOrderForEach(callback)` functions that also accept a callback as a parameter. Each of these functions should traverse the tree in their respective depth-first order and pass each node to the provided callback. The functions should throw an Error if no callback is given as an argument, like with `levelOrderForEach`.\
   [See BTT Pre/In/Postorder video](#resources)
