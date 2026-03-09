@@ -130,3 +130,6 @@ https://www.geeksforgeeks.org/dsa/get-level-of-a-node-in-a-binary-tree/
 
 Breath First Search of a Binary Tree:
 https://www.geeksforgeeks.org/dsa/level-order-tree-traversal/
+
+Calculating the total height of a BST
+https://stackoverflow.com/questions/70477163/calculate-height-depth-of-binary-tree-javascript
