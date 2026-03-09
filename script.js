@@ -213,6 +213,67 @@ class Tree {
     this.postOrderForEach(fn, lvl, node.right);
     this.printNodeLvl(node.data, lvl);
   }
+
+  height(value, node = this.root) {
+    // measured from the bottom of the tree
+
+    if (node === null) {
+      console.log(`${value} was not found`);
+      return undefined;
+    }
+    if (value < node.data) return this.height(value, node.left);
+    if (value > node.data) return this.height(value, node.right);
+    if (value === node.data) {
+      console.log(
+        `The value ${value} is at the following level when measured from its lowest leaf node:`
+      );
+      return this.getValueHeight(node);
+    }
+  }
+
+  getValueHeight(node) {
+    if (node === null) return;
+    return (
+      1 +
+      Math.max(
+        node.left !== null ? this.getValueHeight(node.left) : -1,
+        node.right !== null ? this.getValueHeight(node.right) : -1
+      )
+    );
+  }
+
+  depth(value, node = this.root, lvl = 0) {
+    // measured from the top of the tree
+    if (node === null) {
+      console.log(`${value} was not found`);
+      return undefined;
+    }
+    lvl++;
+    if (value < node.data) return this.depth(value, node.left, lvl);
+    if (value > node.data) return this.depth(value, node.right, lvl);
+    if (value === node.data) {
+      console.log(`The value ${value} was found at a depth of ${lvl}`);
+      return lvl;
+    }
+    return;
+  }
+
+  // Steps:
+
+  // node != null, lvl increases to 1
+  // Comepare value with root node --> 42 > 8
+
+  // call node.right
+  // node != null, lvl increases to 2
+  // Compare 42 < 324
+
+  // call node.left
+  // compate 42 > 23
+
+  // cale node.right --> node.right == null
+  //return undefined
+
+  //
 }
 
 const basic = new Tree(basicArr);
@@ -239,7 +300,21 @@ console.log(prettyPrint(regTree.root));
 
 // regTree.levelOrderForEach_Recur(regTree.printNodeLvl);
 // regTree.levelOrderForEach_Iterate(regTree.printNodeLvl);
-regTree.inOrderForEach(regTree.printNodeLvl);
+// regTree.preOrderForEach(regTree.printNodeLvl);
+// regTree.inOrderForEach(regTree.printNodeLvl);
+// regTree.postOrderForEach(regTree.printNodeLvl);
+
+// regTree.height(3);
+const heightTest = regTree.height(42);
+console.log(heightTest);
+const heightTest2 = regTree.height(3);
+console.log(heightTest2);
+const heightTest3 = regTree.height(8);
+console.log(heightTest3);
+
+// regTree.depth(3);
+const depthTest = regTree.depth(3);
+console.log(depthTest);
 
 // regTree.levelOrderForEach_Recur(regTree.root);
 
