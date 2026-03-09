@@ -258,22 +258,39 @@ class Tree {
     return;
   }
 
-  // Steps:
+  isBalanced(lvl = 1, q = [this.root]) {
+    if (!q.length) return;
 
-  // node != null, lvl increases to 1
-  // Comepare value with root node --> 42 > 8
+    while (q.length) {
+      let qLen = q.length;
 
-  // call node.right
-  // node != null, lvl increases to 2
-  // Compare 42 < 324
-
-  // call node.left
-  // compate 42 > 23
-
-  // cale node.right --> node.right == null
-  //return undefined
-
-  //
+      for (let i = 0; i < qLen; i++) {
+        let front = q.shift();
+        if (front.left !== null) {
+          q.push(front.left);
+        }
+        if (front.right !== null) {
+          q.push(front.right);
+        }
+      }
+      console.log(`at level ${lvl}, q length = ${q.length}`);
+      if (q.length < lvl * 2) {
+        console.log("bottom level reached");
+        console.log(q);
+        let isBalanced = true;
+        for (let node of q) {
+          if (node.right !== null || node.left !== null) {
+            console.log("Tree is unbalanced");
+            isBalanced = false;
+          } else {
+            console.log(`Subtree at node ${node.data} is balanced`);
+          }
+        }
+        return isBalanced;
+      }
+      lvl++;
+    }
+  }
 }
 
 const basic = new Tree(basicArr);
@@ -288,14 +305,14 @@ console.log(regTree.root);
 regTree.includes(324);
 regTree.includes(72);
 
-regTree.insert(666);
-regTree.insert(9);
-regTree.insert(6);
-regTree.insert(10);
+// regTree.insert(666);
+// regTree.insert(9);
+// regTree.insert(6);
+// regTree.insert(10);
 
-regTree.deleteItem(9);
-regTree.deleteItem(67);
-regTree.deleteItem(0);
+// regTree.deleteItem(9);
+// regTree.deleteItem(67);
+// regTree.deleteItem(0);
 console.log(prettyPrint(regTree.root));
 
 // regTree.levelOrderForEach_Recur(regTree.printNodeLvl);
@@ -305,16 +322,19 @@ console.log(prettyPrint(regTree.root));
 // regTree.postOrderForEach(regTree.printNodeLvl);
 
 // regTree.height(3);
-const heightTest = regTree.height(42);
-console.log(heightTest);
-const heightTest2 = regTree.height(3);
-console.log(heightTest2);
-const heightTest3 = regTree.height(8);
-console.log(heightTest3);
+// const heightTest = regTree.height(42);
+// console.log(heightTest);
+// const heightTest2 = regTree.height(3);
+// console.log(heightTest2);
+// const heightTest3 = regTree.height(8);
+// console.log(heightTest3);
 
-// regTree.depth(3);
-const depthTest = regTree.depth(3);
-console.log(depthTest);
+// // regTree.depth(3);
+// const depthTest = regTree.depth(3);
+// console.log(depthTest);
+
+const balanceTest = regTree.isBalanced();
+console.log(balanceTest);
 
 // regTree.levelOrderForEach_Recur(regTree.root);
 
