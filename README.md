@@ -42,20 +42,20 @@
   Write `inOrderForEach(callback)`, `preOrderForEach(callback)`, and `postOrderForEach(callback)` functions that also accept a callback as a parameter. Each of these functions should traverse the tree in their respective depth-first order and pass each node to the provided callback. The functions should throw an Error if no callback is given as an argument, like with `levelOrderForEach`.\
   [See BTT Pre/In/Postorder video](#resources)
 
-- [] **Step 9:**
+- [x] **Step 9:**
 
   Write a `height(value)` function that returns the height of the node containing the given value. Height is defined as the number of edges in the longest path from that node to a leaf node. If the value is not found in the tree, the function should return null.
 
-- [] **Step 10:**
+- [x] **Step 10:**
 
   Write a `depth(value)` function that returns the depth of the node containing the given value. Depth is defined as the number of edges in the path from that node to the root node. If the value is not found in the tree, the function should return null.
 
-- [] **Step 11:**
+- [x] **Step 11:**
 
   Write an `isBalanced` function that checks if the tree is balanced. A binary tree is considered balanced if, for every node in the tree, the height difference between its left and right subtrees is no more than 1, and both the left and right subtrees are also balanced.\
   **Potential Pitfall:** A common mistake is only checking the height difference between the root’s left and right children. That is not enough — you must check the balance condition for every node.
 
-- [] **Step 12:**
+- [x] **Step 12:**
 
   Write a rebalance function that rebalances an unbalanced tree.\ **Tip:** You’ll want to use a traversal method to provide a new array to the buildTree function.
 
@@ -131,5 +131,5 @@ https://www.geeksforgeeks.org/dsa/get-level-of-a-node-in-a-binary-tree/
 Breath First Search of a Binary Tree:
 https://www.geeksforgeeks.org/dsa/level-order-tree-traversal/
 
-Calculating the total height of a BST
+Calculating the total height of a BST:
 https://stackoverflow.com/questions/70477163/calculate-height-depth-of-binary-tree-javascript
