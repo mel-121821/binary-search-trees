@@ -270,8 +270,11 @@ class Tree {
       }
     }
     const sorted = this.sortAndRemoveDuplicates(dataArr);
-    const newTree = this.buildTree(sorted, 0, sorted.length - 1);
-    return newTree;
+    this.root = this.buildTree(sorted, 0, sorted.length - 1);
+    return this.root;
+    //
+    // const newTree = this.buildTree(sorted, 0, sorted.length - 1);
+    // return newTree;
   }
 }
 
