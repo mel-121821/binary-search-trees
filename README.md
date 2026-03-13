@@ -63,35 +63,35 @@
 
   Write a driver script that does the following:
 
-- [] **Step 1:**
+- [x] **Step 1:**
 
   Create a binary search tree from an array of random numbers < 100. You can create a function that returns an array of random numbers every time you call it if you wish.
 
-- [] **Step 2:**
+- [x] **Step 2:**
 
   Confirm that the tree is balanced by calling `isBalanced.
 
-- [] **Step 3:**
+- [x] **Step 3:**
 
   Print out all elements in level, pre, post, and in order.
 
-- [] **Step 4:**
+- [x] **Step 4:**
 
   Unbalance the tree by adding several numbers > 100.
 
-- [] **Step 5:**
+- [x] **Step 5:**
 
   Confirm that the tree is unbalanced by calling `isBalanced`.
 
-- [] **Step 6:**
+- [x] **Step 6:**
 
   Balance the tree by calling `rebalance`.
 
-- [] **Step 7:**
+- [x] **Step 7:**
 
   Confirm that the tree is balanced by calling `isBalanced`.
 
-- [] **Step 8:**
+- [x] **Step 8:**
 
   Print out all elements in level, pre, post, and in order.
 
