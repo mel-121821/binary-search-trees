@@ -1,55 +1,64 @@
 import { prettyPrint } from "./prettyPrint.js";
 import { Tree } from "./tree.js";
 
-const basicArr = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
-const arr = [1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324];
+// Step 1:
 
-const basic = new Tree(basicArr);
-console.log(basic);
-console.log(basic.root);
-console.log(prettyPrint(basic.root));
+// Create a binary search tree from an array of random numbers < 100. You can create a function that returns an array of random numbers every time you call it if you wish.
 
-const regTree = new Tree(arr);
-console.log(regTree);
-console.log(regTree.root);
+function genRandomArr(length) {
+  const arr = [];
+  for (let i = 0; i < length; i++) {
+    arr.push(Math.floor(Math.random() * 100));
+  }
+  return arr;
+}
 
-regTree.includes(324);
-regTree.includes(72);
+// const randomArr = genRandomArr(10);
+const staticArr = [9, 15, 31, 29, 40, 51, 80, 95];
+console.log(staticArr);
 
-regTree.insert(666);
-regTree.insert(9);
-regTree.insert(6);
-regTree.insert(10);
+const BST = new Tree(staticArr);
+console.log(prettyPrint(BST.root));
 
-regTree.deleteItem(9);
-regTree.deleteItem(67);
-regTree.deleteItem(0);
-console.log(prettyPrint(regTree.root));
+// Step 2:
 
-// regTree.levelOrderForEach_Recur(regTree.printNodeLvl);
-// regTree.levelOrderForEach_Iterate(regTree.printNodeLvl);
-// regTree.preOrderForEach(regTree.printNodeLvl);
-// regTree.inOrderForEach(regTree.printNodeLvl);
-// regTree.postOrderForEach(regTree.printNodeLvl);
+// Confirm that the tree is balanced by calling `isBalanced.
+console.log(BST.isBalanced());
 
-// regTree.height(3);
-// const heightTest = regTree.height(42);
-// console.log(heightTest);
-// const heightTest2 = regTree.height(3);
-// console.log(heightTest2);
-// const heightTest3 = regTree.height(8);
-// console.log(heightTest3);
+// Step 3:
 
-// // regTree.depth(3);
-// const depthTest = regTree.depth(3);
-// console.log(depthTest);
+// Print out all elements in level, pre, post, and in order.
+// console.log(BST.preOrderForEach(BST.printNodeLvl));
+// console.log(BST.inOrderForEach(BST.printNodeLvl));
+// console.log(BST.postOrderForEach(BST.printNodeLvl));
 
-const balanceTest = regTree.isBalanced();
-console.log(balanceTest);
+// Step 4:
 
-const rebalance = regTree.rebalance();
-console.log(prettyPrint(rebalance));
+// Unbalance the tree by adding several numbers > 100.
+BST.insert(111);
+BST.insert(124);
+BST.insert(159);
+console.log(prettyPrint(BST.root));
 
-// regTree.levelOrderForEach_Recur(regTree.root);
+// Step 5:
 
-//____End of project code___________
+// Confirm that the tree is unbalanced by calling isBalanced.
+console.log(BST.isBalanced());
+
+// Step 6:
+
+// Balance the tree by calling rebalance.
+BST.rebalance();
+console.log(prettyPrint(BST.root));
+
+// Step 7:
+
+// Confirm that the tree is balanced by calling isBalanced.
+console.log(BST.isBalanced());
+
+// Step 8:
+
+// Print out all elements in level, pre, post, and in order.
+// console.log(BST.preOrderForEach(BST.printNodeLvl));
+// console.log(BST.inOrderForEach(BST.printNodeLvl));
+console.log(BST.postOrderForEach(BST.printNodeLvl));
